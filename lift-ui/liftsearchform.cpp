@@ -37,6 +37,18 @@ LiftSearchForm::~LiftSearchForm()
     delete ui;
 }
 
+void LiftSearchForm::searchFor(const QString &form)
+{
+    ui->inputForm->lingEdit()->setText(form);
+    refreshQuery();
+}
+
+void LiftSearchForm::searchFor(const Form &form)
+{
+    ui->inputForm->suggestInput(form);
+    refreshQuery();
+}
+
 void LiftSearchForm::refreshQuery() const
 {
     mModel->setQueryString( ui->inputForm->lingEdit()->text() );
