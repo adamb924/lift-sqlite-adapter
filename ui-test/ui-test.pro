@@ -3,7 +3,6 @@ QT       += core gui
 greaterThan(QT_MAJOR_VERSION, 4): QT += widgets
 
 CONFIG += c++11
-CONFIG += console
 
 # You can make your code fail to compile if it uses deprecated APIs.
 # In order to do so, uncomment the following line.
@@ -40,3 +39,10 @@ else:unix: LIBS += -L$$PWD/../../../../../../QtBuilds/build-rude-mechanicals-Des
 
 INCLUDEPATH += $$PWD/../../rude-mechanicals
 DEPENDPATH += $$PWD/../../rude-mechanicals
+
+win32:CONFIG(release, debug|release): LIBS += -L$$PWD/../../../../../../QtBuilds/build-lift-sqlite-adapter-Desktop_Qt_5_15_1_MinGW_64_bit-Debug/lift-sqlite-adapter/release/ -llift-sqlite-adapter
+else:win32:CONFIG(debug, debug|release): LIBS += -L$$PWD/../../../../../../QtBuilds/build-lift-sqlite-adapter-Desktop_Qt_5_15_1_MinGW_64_bit-Debug/lift-sqlite-adapter/debug/ -llift-sqlite-adapter
+else:unix: LIBS += -L$$PWD/../../../../../../QtBuilds/build-lift-sqlite-adapter-Desktop_Qt_5_15_1_MinGW_64_bit-Debug/lift-sqlite-adapter/ -llift-sqlite-adapter
+
+INCLUDEPATH += $$PWD/../lift-sqlite-adapter
+DEPENDPATH += $$PWD/../lift-sqlite-adapter

@@ -1,6 +1,6 @@
 TEMPLATE = subdirs
 
 SUBDIRS += \
-    import-lift \
+    lift-sqlite-adapter \
     lift-ui \
     ui-test

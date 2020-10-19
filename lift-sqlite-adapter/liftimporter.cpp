@@ -8,24 +8,28 @@
 #include <QSqlError>
 #include <QSqlQuery>
 
-QString LiftImporter::mDbName = "DATABASE";
-
-LiftImporter::LiftImporter()
+LiftImporter::LiftImporter(const QString &outputPath) : mLdb(outputPath)
 {
 }
 
-void LiftImporter::import(const QString &inputPath, const QString &outputPath)
+LiftImporter::LiftImporter(const LiftDatabase &ldb) : mLdb(ldb)
 {
-    if( !openDatabase(outputPath) )
-    {
-        qDebug() << "There was a problem in opening the database.";
-        return;
-    }
+}
 
-    createTables();
-    prepareQueries();
+LiftDatabase LiftImporter::import(const QString &inputPath, const QString &outputPath)
+{
+    LiftDatabase ldb(outputPath);
+    import( inputPath, ldb );
+    return ldb;
+}
 
-    QSqlDatabase db = QSqlDatabase::database(mDbName);
+LiftDatabase LiftImporter::import(const QString &inputPath, const LiftDatabase &ldb)
+{
+    LiftImporter li(ldb);
+
+    li.prepareQueries();
+
+    QSqlDatabase db = ldb.database();
     db.transaction();
 
     QFile file(inputPath);
@@ -40,19 +44,20 @@ void LiftImporter::import(const QString &inputPath, const QString &outputPath)
           if( xml.isStartElement() && xml.name() == "entry" )
           {
 //              qDebug() << "reading entry" << xml.attributes().value("id");
-              readEntry(xml);
+              li.readEntry(xml);
 //              qDebug() << "done reading entry";
           }
     }
 
     db.commit();
 
+    return ldb;
 }
 
 bool LiftImporter::openDatabase(const QString &outputPath) const
 {
     /// Database initalization
-    QSqlDatabase db = QSqlDatabase::addDatabase("QSQLITE", mDbName);
+    QSqlDatabase db = mLdb.database();
     db.setHostName("hostname");
     db.setDatabaseName(outputPath);
     if(!db.open())
@@ -61,40 +66,6 @@ bool LiftImporter::openDatabase(const QString &outputPath) const
         return false;
     }
     return true;
-}
-
-void LiftImporter::createTables() const
-{
-    QSqlDatabase db = QSqlDatabase::database(mDbName);
-
-    /// entry
-    db.exec("DROP TABLE IF EXISTS entry;");
-    db.exec("CREATE TABLE entry ( _id integer primary key autoincrement );");
-
-    /// citation
-    db.exec("DROP TABLE IF EXISTS citation;");
-    db.exec("CREATE TABLE citation ( _id integer primary key autoincrement, entry_id integer, WritingSystem text, Form text );");
-
-    /// lexical_unit
-    db.exec("DROP TABLE IF EXISTS lexical_unit;");
-    db.exec("CREATE TABLE lexical_unit ( _id integer primary key autoincrement, entry_id integer, WritingSystem text, Form text );");
-
-    /// trait
-    db.exec("DROP TABLE IF EXISTS trait;");
-    db.exec("CREATE TABLE trait ( _id integer primary key autoincrement, entry_id integer, name text, value text );");
-
-    /// sense
-    db.exec("DROP TABLE IF EXISTS sense;");
-    db.exec("CREATE TABLE sense ( _id integer primary key autoincrement, entry_id integer );");
-
-    /// gloss
-    db.exec("DROP TABLE IF EXISTS gloss;");
-    db.exec("CREATE TABLE gloss ( _id integer primary key autoincrement, sense_id integer, WritingSystem text, Form text );");
-
-    /// definition
-    db.exec("DROP TABLE IF EXISTS definition;");
-    db.exec("CREATE TABLE definition ( _id integer primary key autoincrement, sense_id integer, WritingSystem text, Form text );");
-
 }
 
 void LiftImporter::prepareQueries()
@@ -110,7 +81,7 @@ void LiftImporter::prepareQueries()
 
 void LiftImporter::prepareQuery(QSqlQuery &q, const QString &queryString) const
 {
-    q = QSqlQuery(QSqlDatabase::database(mDbName));
+    q = QSqlQuery(mLdb.database());
     if( !q.prepare(queryString) )
     {
         qWarning() << "Statement error: " << q.lastError().text() << q.lastQuery();

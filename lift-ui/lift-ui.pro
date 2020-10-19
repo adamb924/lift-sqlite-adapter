@@ -9,16 +9,12 @@ CONFIG += c++11
 #DEFINES += QT_DISABLE_DEPRECATED_BEFORE=0x060000    # disables all the APIs deprecated before Qt 6.0.0
 
 SOURCES += \
-    lift-ui.cpp \
-    liftdatabase.cpp \
     liftquerymodel.cpp \
     liftquerynode.cpp \
     liftsearchform.cpp
 
 HEADERS += \
     lift-ui_global.h \
-    lift-ui.h \
-    liftdatabase.h \
     liftquerymodel.h \
     liftquerynode.h \
     liftsearchform.h
@@ -46,3 +42,10 @@ else:unix: LIBS += -L$$PWD/../../../../../../QtBuilds/build-mortal-engine-Deskto
 
 INCLUDEPATH += $$PWD/../../mortal-engine/mortal-engine
 DEPENDPATH += $$PWD/../../mortal-engine/mortal-engine
+
+win32:CONFIG(release, debug|release): LIBS += -L$$PWD/../../../../../../QtBuilds/build-lift-sqlite-adapter-Desktop_Qt_5_15_1_MinGW_64_bit-Debug/lift-sqlite-adapter/release/ -llift-sqlite-adapter
+else:win32:CONFIG(debug, debug|release): LIBS += -L$$PWD/../../../../../../QtBuilds/build-lift-sqlite-adapter-Desktop_Qt_5_15_1_MinGW_64_bit-Debug/lift-sqlite-adapter/debug/ -llift-sqlite-adapter
+else:unix: LIBS += -L$$PWD/../../../../../../QtBuilds/build-lift-sqlite-adapter-Desktop_Qt_5_15_1_MinGW_64_bit-Debug/lift-sqlite-adapter/ -llift-sqlite-adapter
+
+INCLUDEPATH += $$PWD/../lift-sqlite-adapter
+DEPENDPATH += $$PWD/../lift-sqlite-adapter

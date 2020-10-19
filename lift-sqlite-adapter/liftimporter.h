@@ -5,20 +5,22 @@
 #include <QSqlQuery>
 class QXmlStreamReader;
 
+#include "liftdatabase.h"
+
 class LiftImporter
 {
+private:
+    LiftImporter(const QString & outputPath);
+    LiftImporter(const LiftDatabase & ldb);
+
 public:
-    LiftImporter();
-
-    void import( const QString & inputPath, const QString & outputPath );
-
-    static QString mDbName;
+    static LiftDatabase import( const QString & inputPath, const QString & outputPath );
+    static LiftDatabase import( const QString & inputPath, const LiftDatabase & ldb );
 
     void setWritingSystemReplacements(const QHash<QString, QString> &writingSystemReplacements);
 
 private:
     bool openDatabase( const QString & outputPath ) const;
-    void createTables() const;
     void prepareQueries();
     void prepareQuery(QSqlQuery &q, const QString & queryString) const;
 
@@ -44,6 +46,7 @@ private:
     QSqlQuery mDefinition;
 
     QHash<QString,QString> mWritingSystemReplacements;
+    LiftDatabase mLdb;
 };
 
 #endif // LIFTIMPORTER_H
