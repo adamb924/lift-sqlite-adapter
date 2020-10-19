@@ -14,7 +14,7 @@ int main(int argc, char *argv[])
     db.addWritingSystem( WritingSystem("tk-TM") );
     db.addWritingSystem( WritingSystem("en") );
 
-    LiftSearchForm * form = new LiftSearchForm(db);
+    LiftSearchForm * form = new LiftSearchForm(db, WritingSystem("tk-TM"));
     form->show();
 
     QMainWindow window;

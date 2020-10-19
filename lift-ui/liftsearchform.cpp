@@ -5,6 +5,7 @@
 #include <QSqlQuery>
 #include <QSqlError>
 #include <QSqlDriver>
+#include <QClipboard>
 
 #include "liftquerymodel.h"
 #include "lingedit.h"
@@ -20,10 +21,8 @@ LiftSearchForm::LiftSearchForm(const LiftDatabase &ldb, QWidget *parent) :
     ui->setupUi(this);
     ui->inputForm->setWritingSystems( ldb.writingSystems().values() );
     ui->treeView->setModel(mModel);
-    ui->treeView->setRootIsDecorated(false);
-    ui->treeView->setHeaderHidden(true);
-
     connect( ui->inputForm->lingEdit(), SIGNAL( returnPressed() ), this, SLOT( refreshQuery() ) );
+    connect( ui->treeView, SIGNAL(doubleClicked(QModelIndex)), this, SLOT(copyToClipboard(QModelIndex)) );
     //    new QAbstractItemModelTester(mModel, QAbstractItemModelTester::FailureReportingMode::Fatal, this);
 }
 
@@ -52,5 +51,14 @@ void LiftSearchForm::searchFor(const Form &form)
 void LiftSearchForm::refreshQuery() const
 {
     mModel->setQueryString( ui->inputForm->lingEdit()->text() );
+}
+
+void LiftSearchForm::copyToClipboard(const QModelIndex &index)
+{
+    if( mModel != nullptr && index.isValid() )
+    {
+        QClipboard *clipboard = QGuiApplication::clipboard();
+        clipboard->setText( mModel->data(index).toString() );
+    }
 }
 

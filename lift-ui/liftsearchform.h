@@ -29,6 +29,7 @@ public slots:
 
 private slots:
     void refreshQuery() const;
+    void copyToClipboard(const QModelIndex &index);
 
 private:
     Ui::LiftSearchForm *ui;

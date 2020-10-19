@@ -18,7 +18,23 @@
     <widget class="TextInputForm" name="inputForm" native="true"/>
    </item>
    <item>
-    <widget class="QTreeView" name="treeView"/>
+    <widget class="QTreeView" name="treeView">
+     <property name="textElideMode">
+      <enum>Qt::ElideNone</enum>
+     </property>
+     <property name="indentation">
+      <number>5</number>
+     </property>
+     <property name="rootIsDecorated">
+      <bool>false</bool>
+     </property>
+     <property name="wordWrap">
+      <bool>true</bool>
+     </property>
+     <property name="headerHidden">
+      <bool>true</bool>
+     </property>
+    </widget>
    </item>
   </layout>
  </widget>

@@ -195,7 +195,7 @@ QVariant LiftQueryModel::data(const QModelIndex &index, int role) const
     }
 
     LiftQueryNode * node = static_cast<LiftQueryNode*>( index.internalPointer() );
-    if( role == Qt::DisplayRole )
+    if( role == Qt::DisplayRole || role == Qt::ToolTipRole )
     {
         return node->displayData();
     }
