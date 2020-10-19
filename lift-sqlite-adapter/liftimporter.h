@@ -5,9 +5,10 @@
 #include <QSqlQuery>
 class QXmlStreamReader;
 
+#include "lift-sqlite-adapter_global.h"
 #include "liftdatabase.h"
 
-class LiftImporter
+class LIFT_SQLITE_ADAPTER_EXPORT LiftImporter
 {
 private:
     LiftImporter(const QString & outputPath);

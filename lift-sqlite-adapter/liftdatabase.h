@@ -8,6 +8,8 @@
 
 class QSqlDatabase;
 
+#include "liftdatabase.h"
+
 class LIFT_SQLITE_ADAPTER_EXPORT LiftDatabase
 {
 public:

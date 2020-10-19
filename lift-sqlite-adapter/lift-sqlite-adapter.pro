@@ -25,9 +25,18 @@ qnx: target.path = /tmp/$${TARGET}/bin
 else: unix:!android: target.path = /opt/$${TARGET}/bin
 !isEmpty(target.path): INSTALLS += target
 
-win32:CONFIG(release, debug|release): LIBS += -L$$PWD/../../../../../../QtBuilds/build-mortal-engine-Desktop_Qt_5_15_1_MinGW_64_bit/mortal-engine/release/ -lmortalengine
-else:win32:CONFIG(debug, debug|release): LIBS += -L$$PWD/../../../../../../QtBuilds/build-mortal-engine-Desktop_Qt_5_15_1_MinGW_64_bit/mortal-engine/debug/ -lmortalengine
-else:unix: LIBS += -L$$PWD/../../../../../../QtBuilds/build-mortal-engine-Desktop_Qt_5_15_1_MinGW_64_bit/mortal-engine/ -lmortalengine
+
+win32-g++ {
+    win32:CONFIG(release, debug|release): LIBS += -L$$OUT_PWD/../../build-mortal-engine-Desktop_Qt_5_15_1_MinGW_64_bit/mortal-engine/release/ -lmortalengine
+    else:win32:CONFIG(debug, debug|release): LIBS += -L$$OUT_PWD/../../build-mortal-engine-Desktop_Qt_5_15_1_MinGW_64_bit/mortal-engine/debug/ -lmortalengine
+    else:unix: LIBS += -L$$OUT_PWD/../../build-mortal-engine-Desktop_Qt_5_15_1_MinGW_64_bit/mortal-engine/ -lmortalengine
+}
+
+win32-msvc* {
+    win32:CONFIG(release, debug|release): LIBS += -L$$OUT_PWD/../../build-mortal-engine-Desktop_Qt_5_15_1_MSVC2019_64bit-Debug/mortal-engine/release/ -lmortalengine
+    else:win32:CONFIG(debug, debug|release): LIBS += -L$$OUT_PWD/../../build-mortal-engine-Desktop_Qt_5_15_1_MSVC2019_64bit-Debug/mortal-engine/debug/ -lmortalengine
+    else:unix: LIBS += -L$$OUT_PWD/../../build-mortal-engine-Desktop_Qt_5_15_1_MSVC2019_64bit-Debug/mortal-engine/ -lmortalengine
+}
 
 INCLUDEPATH += $$PWD/../../mortal-engine/mortal-engine
 DEPENDPATH += $$PWD/../../mortal-engine/mortal-engine
