@@ -15,7 +15,7 @@ void LiftQueryModel::setQueryString(const QString &query)
 {
     beginResetModel();
     mQuery = QSqlQuery( mLdb.database() );
-    if( !mQuery.prepare("SELECT entry_id,WritingSystem,Form FROM citation WHERE Form REGEXP ?;") )
+    if( !mQuery.prepare("SELECT entry_id,WritingSystem,Form FROM citation WHERE Form REGEXP ? ORDER BY Form;") )
     {
         qWarning() << "Statement error: " << mQuery.lastError().text() <<mQuery.lastQuery();
         return;
