@@ -51,6 +51,10 @@ void LiftSearchForm::searchFor(const Form &form)
 void LiftSearchForm::refreshQuery() const
 {
     mModel->setQueryString( ui->inputForm->lingEdit()->text() );
+    if( mModel->rowCount() == 1 )
+    {
+        ui->treeView->expand( mModel->index(0,0) );
+    }
 }
 
 void LiftSearchForm::copyToClipboard(const QModelIndex &index)
