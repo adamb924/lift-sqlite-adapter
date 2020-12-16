@@ -21,7 +21,7 @@ LiftSearchForm::LiftSearchForm(const LiftDatabase &ldb, QWidget *parent) :
     ui->setupUi(this);
     ui->inputForm->setWritingSystems( ldb.writingSystems().values() );
     ui->treeView->setModel(mModel);
-    connect( ui->inputForm->lingEdit(), SIGNAL( returnPressed() ), this, SLOT( refreshQuery() ) );
+    connect( ui->inputForm, SIGNAL( enterPressed() ), this, SLOT( refreshQuery() ) );
     connect( ui->treeView, SIGNAL(doubleClicked(QModelIndex)), this, SLOT(copyToClipboard(QModelIndex)) );
     //    new QAbstractItemModelTester(mModel, QAbstractItemModelTester::FailureReportingMode::Fatal, this);
 }
@@ -38,8 +38,9 @@ LiftSearchForm::~LiftSearchForm()
 
 void LiftSearchForm::searchFor(const QString &form)
 {
-    ui->inputForm->lingEdit()->setText(form);
-    refreshQuery();
+    Form f = ui->inputForm->form();
+    f.setText(form);
+    searchFor(f);
 }
 
 void LiftSearchForm::searchFor(const Form &form)
@@ -50,7 +51,7 @@ void LiftSearchForm::searchFor(const Form &form)
 
 void LiftSearchForm::refreshQuery() const
 {
-    mModel->setQueryString( ui->inputForm->lingEdit()->text() );
+    mModel->setQueryString( ui->inputForm->form().text() );
     if( mModel->rowCount() == 1 )
     {
         ui->treeView->expand( mModel->index(0,0) );
