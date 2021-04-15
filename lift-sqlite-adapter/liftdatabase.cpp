@@ -56,7 +56,7 @@ void LiftDatabase::createTables() const
 
     /// entry
     db.exec("DROP TABLE IF EXISTS entry;");
-    db.exec("CREATE TABLE entry ( _id integer primary key autoincrement );");
+    db.exec("CREATE TABLE entry ( _id integer primary key autoincrement, guid text );");
 
     /// citation
     db.exec("DROP TABLE IF EXISTS citation;");

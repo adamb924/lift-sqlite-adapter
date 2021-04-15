@@ -19,6 +19,7 @@ LiftImporter::LiftImporter(const LiftDatabase &ldb) : mLdb(ldb)
 LiftDatabase LiftImporter::import(const QString &inputPath, const QString &outputPath)
 {
     LiftDatabase ldb(outputPath);
+    ldb.initialize();
     import( inputPath, ldb );
     return ldb;
 }
@@ -70,7 +71,7 @@ bool LiftImporter::openDatabase(const QString &outputPath) const
 
 void LiftImporter::prepareQueries()
 {
-    prepareQuery( mEntry, "INSERT INTO entry DEFAULT VALUES;" );
+    prepareQuery( mEntry, "INSERT INTO entry (guid) VALUES (?);" );
     prepareQuery( mLexicalUnit, "INSERT INTO lexical_unit (entry_id,WritingSystem,Form) VALUES (?,?,?);" );
     prepareQuery( mTrait, "INSERT INTO trait (entry_id,name,value) VALUES (?,?,?);" );
     prepareQuery( mCitation, "INSERT INTO citation (entry_id,WritingSystem,Form) VALUES (?,?,?);" );
@@ -91,6 +92,7 @@ void LiftImporter::prepareQuery(QSqlQuery &q, const QString &queryString) const
 
 void LiftImporter::readEntry(QXmlStreamReader &xml)
 {
+    mEntry.bindValue(0, xml.attributes().value("guid").toString() );
     if( !mEntry.exec() )
     {
         qWarning() << "Query error: " << mEntry.lastError().text() << mEntry.lastQuery();
