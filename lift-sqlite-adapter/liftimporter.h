@@ -32,6 +32,7 @@ private:
     void readSense( QXmlStreamReader &xml, qlonglong entry_id );
     void readGloss( QXmlStreamReader &xml, qlonglong entry_id );
     void readDefinition( QXmlStreamReader &xml, qlonglong entry_id );
+    void readPronunciation( QXmlStreamReader &xml, qlonglong entry_id );
 
     void readForms(QXmlStreamReader &xml, QSqlQuery &q, const QString & elementName, qlonglong entry_id);
     bool atEndOf( QXmlStreamReader &xml, const QString & elementName ) const;
@@ -45,6 +46,7 @@ private:
     QSqlQuery mSense;
     QSqlQuery mGloss;
     QSqlQuery mDefinition;
+    QSqlQuery mPronunciation;
 
     QHash<QString,QString> mWritingSystemReplacements;
     LiftDatabase mLdb;

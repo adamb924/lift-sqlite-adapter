@@ -81,6 +81,10 @@ void LiftDatabase::createTables() const
     /// definition
     db.exec("DROP TABLE IF EXISTS definition;");
     db.exec("CREATE TABLE definition ( _id integer primary key autoincrement, sense_id integer, WritingSystem text, Form text );");
+
+    /// pronunciation
+    db.exec("DROP TABLE IF EXISTS pronunciation;");
+    db.exec("CREATE TABLE pronunciation ( _id integer primary key autoincrement, entry_id integer, WritingSystem text, Form text );");
 }
 
 void LiftDatabase::setWritingSystems(const QHash<QString, WritingSystem> &writingSystems)

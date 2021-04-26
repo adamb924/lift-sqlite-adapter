@@ -78,6 +78,7 @@ void LiftImporter::prepareQueries()
     prepareQuery( mSense, "INSERT INTO sense (entry_id) VALUES (?);" );
     prepareQuery( mGloss, "INSERT INTO gloss (sense_id,WritingSystem,Form) VALUES (?,?,?);" );
     prepareQuery( mDefinition, "INSERT INTO definition (sense_id,WritingSystem,Form) VALUES (?,?,?);" );
+    prepareQuery( mPronunciation, "INSERT INTO pronunciation (entry_id,WritingSystem,Form) VALUES (?,?,?);" );
 }
 
 void LiftImporter::prepareQuery(QSqlQuery &q, const QString &queryString) const
@@ -120,6 +121,10 @@ void LiftImporter::readEntry(QXmlStreamReader &xml)
             else if( xml.name() == "sense" )
             {
                 readSense(xml, entry_id);
+            }
+            else if( xml.name() == "pronunciation" )
+            {
+                readPronunciation(xml, entry_id);
             }
         }
     }
@@ -200,6 +205,11 @@ void LiftImporter::readGloss(QXmlStreamReader &xml, qlonglong entry_id)
 void LiftImporter::readDefinition(QXmlStreamReader &xml, qlonglong entry_id)
 {
     readForms(xml, mDefinition, "definition", entry_id);
+}
+
+void LiftImporter::readPronunciation(QXmlStreamReader &xml, qlonglong entry_id)
+{
+    readForms(xml, mPronunciation, "pronunciation", entry_id);
 }
 
 void LiftImporter::readForms(QXmlStreamReader &xml, QSqlQuery &q, const QString &elementName, qlonglong entry_id)
