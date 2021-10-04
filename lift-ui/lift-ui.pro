@@ -29,19 +29,13 @@ FORMS += \
     liftsearchform.ui
 
 win32-g++ {
-    win32:CONFIG(release, debug|release): LIBS += -L$$OUT_PWD/../../build-rude-mechanicals-Desktop_Qt_5_15_1_MinGW_64_bit-Release/release/ -lrude-mechanicals
-    else:win32:CONFIG(debug, debug|release): LIBS += -L$$OUT_PWD/../../build-rude-mechanicals-Desktop_Qt_5_15_1_MinGW_64_bit-Debug/debug/ -lrude-mechanicals
-    else:unix: LIBS += -L$$OUT_PWD/../../build-rude-mechanicals-Desktop_Qt_5_15_1_MinGW_64_bit/ -lrude-mechanicals
+    win32:CONFIG(release, debug|release): LIBS += -L$$PWD/../../build-rude-mechanicals-Desktop_Qt_5_15_1_MinGW_64_bit-Release/rude-mechanicals/release/ -lrude-mechanicals
+    else:win32:CONFIG(debug, debug|release): LIBS += -L$$PWD/../../build-rude-mechanicals-Desktop_Qt_5_15_1_MinGW_64_bit-Release/rude-mechanicals/debug/ -lrude-mechanicals
+    else:unix: LIBS += -L$$PWD/../../build-rude-mechanicals-Desktop_Qt_5_15_1_MinGW_64_bit-Release/rude-mechanicals/ -lrude-mechanicals
 }
 
-win32-msvc* {
-    win32:CONFIG(release, debug|release): LIBS += -L$$OUT_PWD/../../build-rude-mechanicals-Desktop_Qt_5_15_1_MSVC2019_64bit-Release/release/ -lrude-mechanicals
-    else:win32:CONFIG(debug, debug|release): LIBS += -L$$OUT_PWD/../../build-rude-mechanicals-Desktop_Qt_5_15_1_MSVC2019_64bit-Debug/debug/ -lrude-mechanicals
-    else:unix: LIBS += -L$$OUT_PWD/../../build-rude-mechanicals-Desktop_Qt_5_15_1_MSVC2019_64bit-Debug/ -lrude-mechanicals
-}
-
-INCLUDEPATH += $$PWD/../../rude-mechanicals
-DEPENDPATH += $$PWD/../../rude-mechanicals
+INCLUDEPATH += $$PWD/../../rude-mechanicals/rude-mechanicals
+DEPENDPATH += $$PWD/../../rude-mechanicals/rude-mechanicals
 
 win32-g++ {
     win32:CONFIG(release, debug|release): LIBS += -L$$OUT_PWD/../../build-mortal-engine-Desktop_Qt_5_15_1_MinGW_64_bit-Release/mortal-engine/release/ -lmortalengine
