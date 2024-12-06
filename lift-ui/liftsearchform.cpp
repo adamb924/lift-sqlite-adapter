@@ -26,7 +26,7 @@ LiftSearchForm::LiftSearchForm(const LiftDatabase &ldb, QWidget *parent) :
     //    new QAbstractItemModelTester(mModel, QAbstractItemModelTester::FailureReportingMode::Fatal, this);
 }
 
-LiftSearchForm::LiftSearchForm(const LiftDatabase &ldb, const WritingSystem &ws, QWidget *parent) : LiftSearchForm(ldb,parent)
+LiftSearchForm::LiftSearchForm(const LiftDatabase &ldb, const ME::WritingSystem &ws, QWidget *parent) : LiftSearchForm(ldb,parent)
 {
     ui->inputForm->setFixedWritingSystem(ws);
 }
@@ -38,12 +38,12 @@ LiftSearchForm::~LiftSearchForm()
 
 void LiftSearchForm::searchFor(const QString &form)
 {
-    Form f = ui->inputForm->form();
+    ME::Form f = ui->inputForm->form();
     f.setText(form);
     searchFor(f);
 }
 
-void LiftSearchForm::searchFor(const Form &form)
+void LiftSearchForm::searchFor(const ME::Form &form)
 {
     ui->inputForm->suggestInput(form);
     refreshQuery();

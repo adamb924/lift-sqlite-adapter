@@ -45,7 +45,7 @@ void LiftDatabase::openDatabase(const QString &dbPath) const
 
 }
 
-QHash<QString, WritingSystem> LiftDatabase::writingSystems() const
+QHash<QString, ME::WritingSystem> LiftDatabase::writingSystems() const
 {
     return mWritingSystems;
 }
@@ -87,12 +87,12 @@ void LiftDatabase::createTables() const
     db.exec("CREATE TABLE pronunciation ( _id integer primary key autoincrement, entry_id integer, WritingSystem text, Form text );");
 }
 
-void LiftDatabase::setWritingSystems(const QHash<QString, WritingSystem> &writingSystems)
+void LiftDatabase::setWritingSystems(const QHash<QString, ME::WritingSystem> &writingSystems)
 {
     mWritingSystems = writingSystems;
 }
 
-void LiftDatabase::addWritingSystem(const WritingSystem &ws)
+void LiftDatabase::addWritingSystem(const ME::WritingSystem &ws)
 {
     mWritingSystems.insert(ws.abbreviation(), ws);
 }

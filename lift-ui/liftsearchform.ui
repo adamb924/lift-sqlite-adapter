@@ -15,7 +15,7 @@
   </property>
   <layout class="QVBoxLayout" name="verticalLayout">
    <item>
-    <widget class="TextInputForm" name="inputForm" native="true"/>
+    <widget class="RM::TextInputForm" name="inputForm" native="true"/>
    </item>
    <item>
     <widget class="QTreeView" name="treeView">
@@ -40,7 +40,7 @@
  </widget>
  <customwidgets>
   <customwidget>
-   <class>TextInputForm</class>
+   <class>RM::TextInputForm</class>
    <extends>QWidget</extends>
    <header>textinputform.h</header>
    <container>1</container>

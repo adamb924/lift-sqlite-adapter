@@ -30,10 +30,10 @@ int main(int argc, char *argv[])
     }
 
     LiftDatabase db("lexicon.sqlite");
-    db.addWritingSystem( WritingSystem("tk-TM") );
-    db.addWritingSystem( WritingSystem("en") );
+    db.addWritingSystem( ME::WritingSystem("tk-TM") );
+    db.addWritingSystem( ME::WritingSystem("en") );
 
-    LiftSearchForm * form = new LiftSearchForm(db, WritingSystem("tk-TM"));
+    LiftSearchForm * form = new LiftSearchForm(db, ME::WritingSystem("tk-TM"));
     form->show();
 
     QMainWindow window;

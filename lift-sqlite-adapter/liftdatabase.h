@@ -17,17 +17,17 @@ public:
 
     QSqlDatabase database() const;
 
-    void setWritingSystems(const QHash<QString, WritingSystem> &writingSystems);
-    void addWritingSystem(const WritingSystem & ws);
+    void setWritingSystems(const QHash<QString, ME::WritingSystem> &writingSystems);
+    void addWritingSystem(const ME::WritingSystem & ws);
 
-    QHash<QString, WritingSystem> writingSystems() const;
+    QHash<QString, ME::WritingSystem> writingSystems() const;
 
 private:
     void createTables() const;
     void openDatabase(const QString & dbPath) const;
 
     QString mDatabaseName;
-    QHash<QString,WritingSystem> mWritingSystems;
+    QHash<QString,ME::WritingSystem> mWritingSystems;
 };
 
 #endif // LIFTDATABASE_H
