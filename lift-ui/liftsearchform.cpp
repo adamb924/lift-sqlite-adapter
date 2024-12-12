@@ -8,9 +8,6 @@
 #include <QClipboard>
 
 #include "liftquerymodel.h"
-#include "lingedit.h"
-
-#include <QAbstractItemModelTester>
 
 LiftSearchForm::LiftSearchForm(const LiftDatabase &ldb, QWidget *parent) :
     QWidget(parent),
@@ -23,7 +20,6 @@ LiftSearchForm::LiftSearchForm(const LiftDatabase &ldb, QWidget *parent) :
     ui->treeView->setModel(mModel);
     connect( ui->inputForm, SIGNAL( enterPressed() ), this, SLOT( refreshQuery() ) );
     connect( ui->treeView, SIGNAL(doubleClicked(QModelIndex)), this, SLOT(copyToClipboard(QModelIndex)) );
-    //    new QAbstractItemModelTester(mModel, QAbstractItemModelTester::FailureReportingMode::Fatal, this);
 }
 
 LiftSearchForm::LiftSearchForm(const LiftDatabase &ldb, const ME::WritingSystem &ws, QWidget *parent) : LiftSearchForm(ldb,parent)
