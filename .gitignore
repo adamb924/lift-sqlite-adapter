@@ -1,3 +1,5 @@
 
 lift-sqlite-adapter.pro.user
 data/*
+/build
+*.user
