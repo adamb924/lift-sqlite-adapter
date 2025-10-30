@@ -187,8 +187,6 @@ void LiftQueryModel::fetchMore(const QModelIndex &parent)
 
 QVariant LiftQueryModel::data(const QModelIndex &index, int role) const
 {
-    QSqlQuery query(mQuery);
-
     if (!index.isValid())
     {
         return QVariant();

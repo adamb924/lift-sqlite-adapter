@@ -14,7 +14,9 @@ find_package(QT NAMES Qt6 Qt5 REQUIRED COMPONENTS Core Sql)
 find_package(Qt${QT_VERSION_MAJOR} REQUIRED COMPONENTS Core Sql)
 
 add_library(lift-sqlite-adapter SHARED
+        liftdatabase.h
         liftdatabase.cpp
+        liftimporter.h
         liftimporter.cpp
 )
 
